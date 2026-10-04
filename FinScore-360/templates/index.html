@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+
+{% block title %}FinScore 360 – AI Loan & Financial Risk Assessment System{% endblock %}
+
+{% block content %}
+<section class="hero-section">
+    <div class="container hero-grid">
+        <div class="hero-text">
+            <h1 class="hero-title">Intelligent Loan Approval & Financial Risk Analytics</h1>
+            <p class="hero-subtitle">
+                Make confident borrowing decisions. FinScore 360 evaluates your application-level risk, calculates accurate EMI schedules, predicts institutional loan approval probability, and provides actionable financial improvements.
+            </p>
+            <div class="hero-cta-group">
+                <a href="{{ url_for('assessment') }}" class="btn btn-primary btn-lg">Start Assessment</a>
+                <a href="{{ url_for('emi_page') }}" class="btn btn-outline btn-lg">Calculate EMI</a>
+            </div>
+            <div class="hero-meta">
+                <span>Zero Default Values</span>
+                <span class="meta-dot">·</span>
+                <span>User-Input Driven</span>
+                <span class="meta-dot">·</span>
+                <span>100% Privacy Focused</span>
+            </div>
+        </div>
+        <div class="hero-card">
+            <div class="preview-metric-box">
+                <div class="metric-label">FinScore Risk Matrix</div>
+                <div class="metric-display">
+                    <span class="metric-num">360°</span>
+                    <span class="metric-status">Multi-Dimensional Analysis</span>
+                </div>
+                <div class="metric-breakdown">
+                    <div class="metric-row">
+                        <span>Approval Likelihood</span>
+                        <strong>Machine Learning Calibrated</strong>
+                    </div>
+                    <div class="metric-row">
+                        <span>Repayment Pressure</span>
+                        <strong>Debt-to-Income Indexed</strong>
+                    </div>
+                    <div class="metric-row">
+                        <span>Actionable Insights</span>
+                        <strong>Tailored Financial Advice</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="features-section">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-tag">Core Capabilities</span>
+            <h2 class="section-title">The Four Pillars of FinScore 360</h2>
+            <p class="section-desc">A unified suite designed for prospective borrowers, loan officers, and financial planners.</p>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">01</div>
+                <h3 class="feature-title">Loan Approval Prediction</h3>
+                <p class="feature-text">
+                    Analyzes your financial profile, income stability, credit standing, and borrowing requirements through our sophisticated predictive intelligence engine to project approval outcomes.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">02</div>
+                <h3 class="feature-title">EMI Calculator</h3>
+                <p class="feature-text">
+                    Calculates exact monthly installments, total interest liabilities, and cumulative repayment totals using standard reducing-balance formulas with customizable tenure periods.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">03</div>
+                <h3 class="feature-title">Financial Risk Assessment</h3>
+                <p class="feature-text">
+                    Computes a comprehensive 0–100 FinScore Risk Score measuring debt burden ratios, cashflow headroom, credit history, and leverage multiples with granular explanations.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">04</div>
+                <h3 class="feature-title">Personalized Financial Tips</h3>
+                <p class="feature-text">
+                    Receives customized, algorithmic financial guidance tailored directly to your debt obligations, income headroom, and approval factors to optimize your borrowing profile.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="cta-banner">
+    <div class="container cta-container">
+        <div class="cta-content">
+            <h2>Ready to evaluate your financial readiness?</h2>
+            <p>Every calculation is performed instantly using only the details you personally provide.</p>
+        </div>
+        <div class="cta-buttons">
+            <a href="{{ url_for('assessment') }}" class="btn btn-primary btn-lg">Begin Loan Assessment</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

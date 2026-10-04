@@ -1,0 +1,6 @@
+{
+  "name": "FinScore 360 – AI Loan & Financial Risk Assessment System",
+  "description": "Professional AI Loan & Financial Risk Assessment System providing loan approval prediction, EMI calculation, financial risk scoring, and personalized financial tips.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

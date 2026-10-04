@@ -1,0 +1,63 @@
+/* FinScore 360 – Responsive Breakpoints */
+
+@media (max-width: 1024px) {
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .features-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .four-pillars-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .form-grid-3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .calculator-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .header-container {
+    height: auto;
+    padding: 16px 20px;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .nav-links {
+    order: 3;
+    width: 100%;
+    justify-content: space-between;
+    gap: 12px;
+    padding-top: 10px;
+    border-top: 1px solid var(--border-subtle);
+  }
+  .hero-title {
+    font-size: 30px;
+  }
+  .form-grid-3 {
+    grid-template-columns: 1fr;
+  }
+  .results-top-grid,
+  .results-mid-grid,
+  .tips-list-grid,
+  .about-grid,
+  .four-pillars-list {
+    grid-template-columns: 1fr;
+  }
+  .footer-content {
+    flex-direction: column;
+    gap: 28px;
+  }
+  .footer-links-group {
+    flex-direction: column;
+    gap: 20px;
+  }
+  .cta-container {
+    flex-direction: column;
+    text-align: center;
+    gap: 20px;
+  }
+}

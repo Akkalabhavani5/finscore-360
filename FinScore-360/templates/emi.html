@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+
+{% block title %}EMI Calculator – FinScore 360{% endblock %}
+
+{% block content %}
+<div class="container page-container">
+    <div class="page-header">
+        <span class="section-tag">Precision Calculator</span>
+        <h1 class="page-title">Loan EMI &amp; Affordability Calculator</h1>
+        <p class="page-desc">
+            Calculate your exact monthly installments, cumulative interest payable, debt burden ratio, and disposable income impact. Every input must be entered manually.
+        </p>
+    </div>
+
+    <div class="calculator-layout">
+        <!-- Input Form -->
+        <div class="calc-form-card">
+            <form action="{{ url_for('emi_page') }}" method="POST" id="emiCalculatorForm" novalidate>
+                <div class="form-group">
+                    <label for="calc_loan_amount">Loan Amount (₹) <span class="required">*</span></label>
+                    <input type="number" id="calc_loan_amount" name="loan_amount" placeholder="Example: 1000000" min="1" step="any" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="calc_interest_rate">Annual Interest Rate (%) <span class="required">*</span></label>
+                    <input type="number" id="calc_interest_rate" name="annual_interest_rate" placeholder="Example: 9.0" min="0" max="40" step="0.01" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="calc_tenure_val">Loan Tenure <span class="required">*</span></label>
+                    <div class="input-with-unit">
+                        <input type="number" id="calc_tenure_val" name="tenure_value" placeholder="Example: 10" min="1" step="1" required>
+                        <select name="tenure_unit" id="calc_tenure_unit">
+                            <option value="Years" selected>Years</option>
+                            <option value="Months">Months</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="calc_monthly_income">Monthly Net Income (₹) <span class="required">*</span></label>
+                    <input type="number" id="calc_monthly_income" name="monthly_income" placeholder="Example: 60000" min="1" step="any" required>
+                    <span class="field-hint">Required for EMI affordability &amp; ratio calculations</span>
+                </div>
+
+                <div class="form-group">
+                    <label for="calc_existing_debt">Existing Monthly Debt / EMI (₹) <span class="required">*</span></label>
+                    <input type="number" id="calc_existing_debt" name="existing_debt" placeholder="Example: 5000" min="0" step="any" required>
+                    <span class="field-hint">Current pre-existing monthly payments</span>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block btn-lg" id="calculateEmiBtn">
+                    Calculate EMI Breakdown
+                </button>
+            </form>
+        </div>
+
+        <!-- Live Results Panel -->
+        <div class="calc-results-card">
+            {% if emi %}
+            <div class="result-header">
+                <span class="result-tag">Calculated Schedule</span>
+                <h2>Monthly EMI: ₹{{ "{:,.2f}".format(emi.monthly_emi) }}</h2>
+                <div class="affordability-badge affordability-{{ emi.affordability_status.lower().replace(' ', '-') }}">
+                    {{ emi.affordability_status }}
+                </div>
+            </div>
+
+            <div class="results-grid-2">
+                <div class="stat-box">
+                    <span class="stat-label">Total Interest</span>
+                    <strong class="stat-val">₹{{ "{:,.2f}".format(emi.total_interest) }}</strong>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-label">Total Amount Payable</span>
+                    <strong class="stat-val">₹{{ "{:,.2f}".format(emi.total_amount_payable) }}</strong>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-label">EMI-to-Income Ratio</span>
+                    <strong class="stat-val">{{ emi.emi_to_income_ratio }}%</strong>
+                </div>
+                {% if debt %}
+                <div class="stat-box">
+                    <span class="stat-label">Total Debt Burden Ratio</span>
+                    <strong class="stat-val">{{ debt.debt_burden_ratio }}%</strong>
+                </div>
+                {% endif %}
+            </div>
+
+            {% if debt %}
+            <div class="debt-callout">
+                <h4>Combined Monthly Debt Obligation</h4>
+                <p>Existing Debt: <strong>₹{{ "{:,.2f}".format(debt.existing_monthly_debt) }}</strong> + New EMI: <strong>₹{{ "{:,.2f}".format(debt.new_emi) }}</strong> = <strong>₹{{ "{:,.2f}".format(debt.total_monthly_debt_burden) }}</strong> / month.</p>
+            </div>
+            {% endif %}
+
+            <div class="calc-cta-bottom">
+                <a href="{{ url_for('assessment') }}" class="btn btn-primary btn-block">
+                    Proceed to Complete Loan Assessment
+                </a>
+            </div>
+            {% else %}
+            <div class="empty-state">
+                <div class="empty-icon">₹</div>
+                <h3>Enter Your Details to Compute Schedule</h3>
+                <p>Fill out the parameters on the left to see your monthly installment, total interest, and affordability analysis.</p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/calculator.js') }}"></script>
+{% endblock %}

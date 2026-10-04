@@ -1,0 +1,164 @@
+{% extends "base.html" %}
+
+{% block title %}Assessment Results – FinScore 360{% endblock %}
+
+{% block content %}
+<div class="container page-container">
+    <div class="result-banner-header">
+        <div>
+            <span class="section-tag">Executive Summary</span>
+            <h1 class="page-title">Financial Assessment Report</h1>
+            <p class="page-desc">Comprehensive analysis based on your submitted financial profile and borrowing requirements.</p>
+        </div>
+        <div class="result-actions">
+            <button onclick="window.print()" class="btn btn-outline btn-sm">Print / Save PDF</button>
+            <a href="{{ url_for('assessment') }}" class="btn btn-primary btn-sm">Re-Assess / Modify</a>
+        </div>
+    </div>
+
+    <!-- Top Two Cards: Loan Prediction & FinScore Risk Score -->
+    <div class="results-top-grid">
+        <!-- 1. Loan Approval Prediction -->
+        <div class="result-card card-prediction card-prediction-{{ prediction.status.lower().replace(' ', '-') }}">
+            <div class="card-kicker">Machine Learning Projection</div>
+            <h3 class="card-heading">Loan Approval Prediction</h3>
+            <div class="prediction-status-badge status-{{ prediction.status.lower().replace(' ', '-') }}">
+                {{ prediction.status }}
+            </div>
+            {% if prediction.probability %}
+            <div class="prediction-prob">
+                <span>Estimated Model Likelihood:</span>
+                <strong>{{ prediction.probability }}%</strong>
+            </div>
+            {% endif %}
+            <p class="prediction-note">
+                {% if prediction.status == 'Approved' %}
+                Based on your entered income levels, loan amount, and credit history, our machine learning classification engine predicts favorable institutional eligibility.
+                {% else %}
+                Based on current financial indicators and leverage ratios, the predictive model estimates elevated qualification friction. Review the personalized tips below to optimize your profile.
+                {% endif %}
+            </p>
+        </div>
+
+        <!-- 2. Financial Risk Assessment -->
+        <div class="result-card card-risk">
+            <div class="card-kicker">Comprehensive Risk Indicator</div>
+            <h3 class="card-heading">Application Financial Risk</h3>
+            <div class="risk-score-display">
+                <div class="score-circle">
+                    <span class="score-number">{{ risk.score }}</span>
+                    <span class="score-denom">/100</span>
+                </div>
+                <div class="risk-level-meta">
+                    <div class="risk-level-tag level-{{ risk.risk_level.lower().replace(' ', '-') }}">
+                        {{ risk.risk_level }}
+                    </div>
+                    <span class="risk-disclaimer">Application-level financial risk indicator; not an official banking or credit score.</span>
+                </div>
+            </div>
+
+            <div class="risk-reasons">
+                <h4>Primary Risk Factors Identified:</h4>
+                <ul class="reason-list">
+                    {% for reason in risk.reasons %}
+                    <li>{{ reason }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Second Row: EMI & Existing Debt Breakdown -->
+    <div class="results-mid-grid">
+        <!-- EMI Breakdown -->
+        <div class="result-card">
+            <div class="card-kicker">Installment Analytics</div>
+            <h3 class="card-heading">EMI &amp; Repayment Schedule</h3>
+            <div class="metric-highlight">
+                <span class="metric-label">Estimated Monthly EMI</span>
+                <span class="metric-hero">₹{{ "{:,.2f}".format(emi.monthly_emi) }}</span>
+            </div>
+            <div class="data-table-clean">
+                <div class="data-row">
+                    <span>Requested Loan Amount:</span>
+                    <strong>₹{{ "{:,.2f}".format(summary.loan_amount) }}</strong>
+                </div>
+                <div class="data-row">
+                    <span>Annual Interest Rate:</span>
+                    <strong>{{ summary.annual_interest }}%</strong>
+                </div>
+                <div class="data-row">
+                    <span>Tenure Period:</span>
+                    <strong>{{ summary.tenure_months }} Months ({{ (summary.tenure_months / 12)|round(1) }} Years)</strong>
+                </div>
+                <div class="data-row">
+                    <span>Total Interest Payable:</span>
+                    <strong>₹{{ "{:,.2f}".format(emi.total_interest) }}</strong>
+                </div>
+                <div class="data-row">
+                    <span>Total Amount Payable:</span>
+                    <strong>₹{{ "{:,.2f}".format(emi.total_amount_payable) }}</strong>
+                </div>
+                <div class="data-row">
+                    <span>EMI-to-Income Proportion:</span>
+                    <strong>{{ emi.emi_to_income_ratio }}% ({{ emi.affordability_status }})</strong>
+                </div>
+            </div>
+        </div>
+
+        <!-- Existing Debt & Total Burden -->
+        <div class="result-card">
+            <div class="card-kicker">Total Leverage</div>
+            <h3 class="card-heading">Debt Burden &amp; Cash Flow Impact</h3>
+            <div class="metric-highlight">
+                <span class="metric-label">Total Monthly Debt Obligation</span>
+                <span class="metric-hero">₹{{ "{:,.2f}".format(debt.total_monthly_debt_burden) }}</span>
+            </div>
+            <div class="data-table-clean">
+                <div class="data-row">
+                    <span>Existing Monthly Debt / EMI:</span>
+                    <strong>₹{{ "{:,.2f}".format(debt.existing_monthly_debt) }}</strong>
+                </div>
+                <div class="data-row">
+                    <span>Projected New Loan EMI:</span>
+                    <strong>₹{{ "{:,.2f}".format(debt.new_emi) }}</strong>
+                </div>
+                <div class="data-row">
+                    <span>Combined Monthly Income:</span>
+                    <strong>₹{{ "{:,.2f}".format(summary.monthly_income) }}</strong>
+                </div>
+                <div class="data-row">
+                    <span>Total Debt Burden Ratio (DTI):</span>
+                    <strong>{{ debt.debt_burden_ratio }}%</strong>
+                </div>
+                <div class="data-row">
+                    <span>Credit Standing Stated:</span>
+                    <strong>{{ summary.credit_history }}</strong>
+                </div>
+                <div class="data-row">
+                    <span>Remaining Disposable Income:</span>
+                    <strong>₹{{ "{:,.2f}".format(summary.monthly_income - debt.total_monthly_debt_burden) }}</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Third Row: Personalized Financial Tips -->
+    <div class="result-card tips-card">
+        <div class="card-kicker">Tailored Recommendations</div>
+        <h3 class="card-heading">Personalized Financial Tips</h3>
+        <p class="tips-intro">Actionable recommendations generated exclusively from your entered financial metrics and obligations:</p>
+        <div class="tips-list-grid">
+            {% for tip in tips %}
+            <div class="tip-item">
+                <div class="tip-index">0{{ loop.index }}</div>
+                <div class="tip-text">{{ tip }}</div>
+            </div>
+            {% endfor %}
+        </div>
+        <p class="tips-disclaimer">
+            * Note: These recommendations are advisory insights derived from standard financial prudence benchmarks. Implementation does not legally guarantee institutional credit issuance.
+        </p>
+    </div>
+</div>
+{% endblock %}

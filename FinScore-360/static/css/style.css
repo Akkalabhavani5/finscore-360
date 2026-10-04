@@ -1,0 +1,257 @@
+/* FinScore 360 – Core Design System & Typography */
+:root {
+  --bg-primary: #0b1120;
+  --bg-surface: #111a2e;
+  --bg-card: #162238;
+  --bg-card-hover: #1c2c48;
+  --border-subtle: #243553;
+  --border-focus: #3b82f6;
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --text-faint: #64748b;
+  --primary: #10b981;
+  --primary-hover: #059669;
+  --primary-glow: rgba(16, 185, 129, 0.15);
+  --accent: #3b82f6;
+  --danger: #ef4444;
+  --warning: #f59e0b;
+  --success: #10b981;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body.fintech-body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-primary);
+  color: var(--text-main);
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  width: 100%;
+}
+
+/* Header */
+.fintech-header {
+  border-bottom: 1px solid var(--border-subtle);
+  background: rgba(11, 17, 32, 0.85);
+  backdrop-filter: blur(12px);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 72px;
+}
+
+.brand-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: var(--text-main);
+}
+
+.logo-mark {
+  background: linear-gradient(135deg, #10b981, #0284c7);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  letter-spacing: 0.5px;
+}
+
+.logo-text {
+  font-size: 19px;
+  font-weight: 600;
+  letter-spacing: -0.3px;
+}
+
+.logo-text strong {
+  color: var(--primary);
+  font-weight: 700;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.nav-item {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  transition: color 0.15s ease;
+}
+
+.nav-item:hover {
+  color: var(--text-main);
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: #0b1120;
+}
+
+.btn-primary:hover {
+  background: var(--primary-hover);
+  transform: translateY(-1px);
+}
+
+.btn-outline {
+  background: transparent;
+  border-color: var(--border-subtle);
+  color: var(--text-main);
+}
+
+.btn-outline:hover {
+  border-color: var(--text-muted);
+  background: var(--bg-card);
+}
+
+.btn-secondary {
+  background: var(--bg-card);
+  color: var(--text-muted);
+  border-color: var(--border-subtle);
+}
+
+.btn-secondary:hover {
+  color: var(--text-main);
+  background: var(--bg-card-hover);
+}
+
+.btn-sm {
+  padding: 7px 14px;
+  font-size: 13px;
+}
+
+.btn-lg {
+  padding: 12px 26px;
+  font-size: 15px;
+}
+
+.btn-block {
+  width: 100%;
+}
+
+/* Alerts */
+.flash-container {
+  margin-top: 16px;
+}
+
+.alert {
+  padding: 14px 18px;
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 12px;
+}
+
+.alert-danger {
+  background: rgba(239, 68, 68, 0.12);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: #fca5a5;
+}
+
+.alert-success {
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  color: #86efac;
+}
+
+/* Footer */
+.fintech-footer {
+  margin-top: auto;
+  border-top: 1px solid var(--border-subtle);
+  background: var(--bg-surface);
+  padding: 48px 0 24px;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+  margin-bottom: 36px;
+}
+
+.footer-brand {
+  max-width: 380px;
+}
+
+.footer-desc {
+  color: var(--text-muted);
+  font-size: 13px;
+  margin-top: 12px;
+  line-height: 1.6;
+}
+
+.footer-links-group {
+  display: flex;
+  gap: 56px;
+}
+
+.footer-col h4 {
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--text-faint);
+  margin-bottom: 14px;
+}
+
+.footer-col a {
+  display: block;
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 13px;
+  margin-bottom: 10px;
+  transition: color 0.15s ease;
+}
+
+.footer-col a:hover {
+  color: var(--text-main);
+}
+
+.footer-bottom {
+  border-top: 1px solid var(--border-subtle);
+  padding-top: 20px;
+  font-size: 12px;
+  color: var(--text-faint);
+  text-align: center;
+}

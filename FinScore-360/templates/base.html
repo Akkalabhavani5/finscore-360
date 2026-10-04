@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}FinScore 360 – AI Loan & Financial Risk Assessment System{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/responsive.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="fintech-body">
+    <header class="fintech-header">
+        <div class="container header-container">
+            <a href="{{ url_for('home') }}" class="brand-logo">
+                <span class="logo-mark">360</span>
+                <span class="logo-text">FinScore<strong>360</strong></span>
+            </a>
+            <nav class="nav-links">
+                <a href="{{ url_for('home') }}" class="nav-item">Home</a>
+                <a href="{{ url_for('assessment') }}" class="nav-item">Loan Assessment</a>
+                <a href="{{ url_for('emi_page') }}" class="nav-item">EMI Calculator</a>
+                <a href="{{ url_for('about') }}" class="nav-item">About</a>
+            </nav>
+            <div class="header-action">
+                <a href="{{ url_for('assessment') }}" class="btn btn-primary btn-sm">Start Assessment</a>
+            </div>
+        </div>
+    </header>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="container flash-container">
+          {% for category, message in messages %}
+            <div class="alert alert-{{ category }}">
+                <span>{{ message }}</span>
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    <main class="main-content">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="fintech-footer">
+        <div class="container footer-content">
+            <div class="footer-brand">
+                <div class="brand-logo footer-logo">
+                    <span class="logo-mark">360</span>
+                    <span class="logo-text">FinScore<strong>360</strong></span>
+                </div>
+                <p class="footer-desc">AI-Driven Loan & Financial Risk Assessment System delivering objective risk analytics, precise repayment projections, and tailored guidance.</p>
+            </div>
+            <div class="footer-links-group">
+                <div class="footer-col">
+                    <h4>Pillars</h4>
+                    <a href="{{ url_for('assessment') }}">Loan Approval Prediction</a>
+                    <a href="{{ url_for('emi_page') }}">EMI Calculator</a>
+                    <a href="{{ url_for('assessment') }}">Risk Assessment</a>
+                    <a href="{{ url_for('assessment') }}">Financial Tips</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Platform</h4>
+                    <a href="{{ url_for('about') }}">Methodology</a>
+                    <a href="{{ url_for('about') }}">Risk Framework</a>
+                    <a href="{{ url_for('about') }}">Privacy & Security</a>
+                </div>
+            </div>
+        </div>
+        <div class="container footer-bottom">
+            <p>&copy; 2026 FinScore 360. All rights reserved. Application-level financial risk indicator, not an official banking or credit score.</p>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

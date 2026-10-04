@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block title %}About FinScore 360 – AI Loan & Financial Risk Assessment System{% endblock %}
+
+{% block content %}
+<div class="container page-container">
+    <div class="page-header">
+        <span class="section-tag">System Overview</span>
+        <h1 class="page-title">About FinScore 360</h1>
+        <p class="page-desc">
+            An advanced, user-input-driven financial evaluation platform combining statistical learning with sound lending prudence.
+        </p>
+    </div>
+
+    <div class="about-grid">
+        <div class="about-card">
+            <h3>Our Mission</h3>
+            <p>
+                FinScore 360 was built to democratize institutional-grade financial risk assessment for borrowers and financial planners. By marrying modern predictive algorithms with classical affordability math, the platform offers an immediate, objective appraisal of loan eligibility, debt strain, and financial resilience.
+            </p>
+        </div>
+
+        <div class="about-card">
+            <h3>Strict Privacy &amp; Data Ethics</h3>
+            <p>
+                FinScore 360 never pre-fills financial values, never silently pulls data from external datasets for user predictions, and never shares your sensitive income parameters. Every single ratio, score, and recommendation is calculated purely from what you explicitly input in your current session.
+            </p>
+        </div>
+    </div>
+
+    <div class="about-section-full">
+        <h3>The 4 Core Pillars</h3>
+        <div class="four-pillars-list">
+            <div class="pillar-box">
+                <h4>1. Loan Approval Prediction</h4>
+                <p>Employs a trained machine learning ensemble in the backend to assess historical loan issuance patterns against your financial and demographic profile.</p>
+            </div>
+            <div class="pillar-box">
+                <h4>2. EMI Calculator</h4>
+                <p>Executes exact reducing-balance interest computations to deliver transparent amortization, monthly installment figures, and debt-to-income benchmarks.</p>
+            </div>
+            <div class="pillar-box">
+                <h4>3. Financial Risk Assessment</h4>
+                <p>Produces the proprietary 0–100 FinScore Risk Score, evaluating total debt-to-income burden, existing commitments, leverage multiples, and income stability.</p>
+            </div>
+            <div class="pillar-box">
+                <h4>4. Personalized Financial Tips</h4>
+                <p>Generates targeted, pragmatic financial recommendations focused on debt reduction, tenure adjustments, or credit optimization tailored to your entered numbers.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Windows / VS Code Local Setup Guide -->
+    <div class="setup-guide-card">
+        <span class="section-tag">Developer Instructions</span>
+        <h3>Running FinScore-360 in VS Code on Windows</h3>
+        <p>To run the native Python/Flask application locally on your Windows workstation:</p>
+        
+        <div class="code-block">
+            <pre><code># 1. Create a Python Virtual Environment
+python -m venv venv
+
+# 2. Activate Virtual Environment (Windows PowerShell / CMD)
+venv\Scripts\activate
+
+# 3. Install Required Dependencies
+pip install -r requirements.txt
+
+# 4. Train Models & Generate Preprocessing Artifacts
+cd ml
+python train_models.py
+python evaluate_models.py
+cd ..
+
+# 5. Start the Flask Server
+python app.py
+
+# 6. Open in Browser
+http://127.0.0.1:5000</code></pre>
+        </div>
+        <p class="guide-note">
+            The machine learning training step reads <code>data/raw/loan_data.csv</code>, cleans features, benchmarks models, and exports the selected inference pipeline to <code>ml/saved_models/</code> without exposing data to end users.
+        </p>
+    </div>
+</div>
+{% endblock %}
